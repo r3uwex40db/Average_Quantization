@@ -12,32 +12,37 @@ As the size of deep learning models increases, their performance improves accord
 
 ## Install
 
+### 1. ActNN with AQ
 + Requirements
 ```bash
-conda env create -f aal.yaml
-conda activate aal
+cd sens_act_with_aq/requirements
+conda env create -f actnn_aq.yaml
 ```
-
 + Buld AAL:
 ```bash
-git clone
-cd setpup/aal
+conda activate actnn_aq
+cd sens_act_with_aq/actnn_aq
 pip install -v -e .
 ```
 
-We also slightly modified code of ActNN and Mesa to apply it with aal simultaneously.
-
-+ Buld ActNN for AAL
+### 2. GACT with AQ
++ Requirements
 ```bash
-pip install -v -e .
+cd sens_act_with_aq/requirements
+conda env create -f gact_aq.yaml
 ```
-+ Buld Mesa for AAL
++ Buld AAL:
 ```bash
-cd setpup/mesa
-python setup.py develop
+conda activate gact_aq
+cd sens_act_with_aq/gact_aq
+pip install -v -e .
 ```
 
 ## Usage 
+
+### 1. ActNN with AQ
+
+### 2. GACT with AQ
 
 + Implementing ARA
 ```python
@@ -80,27 +85,14 @@ x = self.linear(x)
 
 ## Example
 
-[ResNet](https://github.com/asdfasgqergadsad/Auxiliary_Activation_Learning/tree/main/experiments/ResNet)
+[ResNet](https://github.com/asdgasdf/Average_Quantization/tree/main/benchmark/vision)
 
-[Transformer](https://github.com/asdfasgqergadsad/Auxiliary_Activation_Learning/tree/main/experiments/Transformer)
-
-[BERT_L](https://github.com/asdfasgqergadsad/Auxiliary_Activation_Learning/tree/main/experiments/BERT_L)
-
-[ViT_L](https://github.com/asdfasgqergadsad/Auxiliary_Activation_Learning/tree/main/experiments/ViT_L)
-
-[MLP-Mixer_L](https://github.com/asdfasgqergadsad/Auxiliary_Activation_Learning/tree/main/experiments/MLP-Mixer_L)
-
-
-## Results
-
-![result1](https://user-images.githubusercontent.com/114454500/192739402-7dc05b90-f19a-482a-995c-ce66a3949abd.png)
-  
-![result2](https://user-images.githubusercontent.com/114454500/192739585-98379113-d735-47e9-b72a-84e92028b3b3.png)
+[BERT_L](https://github.com/asdgasdf/Average_Quantization/tree/main/benchmark/text_classification)
 
  
 ## Acknowledgments
   
-  In this repository, code of [ActNN](https://github.com/ucbrise/actnn) and [Mesa](https://github.com/ziplab/Mesa) are modified to apply with our AAL.
+  In this repository, code of [ActNN](https://github.com/ucbrise/actnn) and [GACT](https://github.com/LiuXiaoxuanPKU/GACT-ICML) are modified to apply with our Averge Quantization.
   Thanks the authors for open-source code.
   
  ## Lisense
