@@ -43,46 +43,29 @@ pip install -v -e .
 ### 1. ActNN with AQ
 
 ### 2. GACT with AQ
-
-+ Implementing ARA
 ```python
-from aal.aal import Conv2d_ARA, Distribute_ARA
+from gact_aq.controller import Controller # import gact_aq controller
+gact_aq.set_optimization_level(level='L2', bit=1, aq_bit=0.5, gactnorm =True) # set the optmization level, average bit of total activations, AQ 0.x-bit, and whether applying gactnorm or not. More config info can be seen in gact_aq/conf.py and Fig. 3 of [GACT](https://arxiv.org/pdf/2206.11357.pdf)
+model = .... # define your model here
+controller = Controller(model)
+controller.install_hook()
 
-# define convolution layer wich uses ARA
-self.conv1 = nn.Conv2d(64,64,3,1,1)
-self.conv2 = Conv2d_ARA(64,64,3,1,1)
-self.conv3 = Conv2d_ARA(64,64,3,1,1)
-# define Distribute_ARA which is layer for implementing ARA
-self.dsa = Distribute_ARA()
+# training logic
+for epoch in ...
+  for iter in ....
+    ......
+    def backprop():
+        model.train() # make sure you are in the training mode
+        output = model(input) # forward
+        loss = calculate_loss()
+        optimizer.zero_grad() # this line must be present!
+        loss.backward() # backward
 
-# define auxiliary residual activation for updating Conv2d_ARA
-ARA = x.clone()
-# doing backpropagation for conv1
-x = self.conv1(x)
-# adding auxiliary activation to output activation (residual connection)
-# and propagating to Conv2d_ARA
-x += ARA
-x, ARA = self.conv2(x, ARA)
-X += ARA
-x, ARA = self.conv3(x, ARA)
-# Distribute ARA makes self.conv2 and self.conv3 updates weight with ARA, not x!
-x, ARA = self.dsa(x, ARA)
+    optimizer.step() # update the parameters
+    controller.iterate(backprop) # tell gact how to perform forward/backward
+
+controller.uninstall_hook()
 ```
-
-+ Implementing ASA
-```python
-from aal.aal import Linear_ASA
-
-# define linear layer for ASA
-self.linear = Linear_asa(256,256)
-
-# propagating to Linear_ASA layer
-# it would perform add 1-bit auxiliary sign activation during forward propagation
-# and store this 1-bit auxiliary sign activation.
-# during backprop, it would update weights by 1-bit auxiliary sign activation
-x = self.linear(x)
-```
-
 ## Example
 
 [ResNet](https://github.com/asdgasdf/Average_Quantization/tree/main/benchmark/vision)
