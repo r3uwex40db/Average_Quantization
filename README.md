@@ -75,6 +75,12 @@ for epoch in ...
 
 controller.uninstall_hook()
 ```
+## Results
+
+### 1. Vision
+![vision](fig/vision.png)
+### 2. Text classification
+![text_classification](fig/text_classification.png)
 ## Example
 
 [ResNet](https://github.com/asdgasdf/Average_Quantization/tree/main/benchmark/vision)
