@@ -45,7 +45,7 @@ pip install -v -e .
 ### 2. GACT with AQ
 ```python
 from gact_aq.controller import Controller # import gact_aq controller
-gact_aq.set_optimization_level(level='L2', bit=1, aq_bit=0.5, gactnorm =True) # set the optmization level, average bit of total activations, AQ 0.x-bit, and whether applying gactnorm or not. More config info can be seen in gact_aq/conf.py and Fig. 3 of [GACT](https://arxiv.org/pdf/2206.11357.pdf)
+gact_aq.set_optimization_level(level='L2', bit=1, aq_bit=0.5, gactnorm =True) # set the optmization level, average bit of total activations, AQ 0.x-bit, and whether applying gactnorm or not. More config info can be seen in gact_aq/conf.py and Fig. 3 of GACT paper(https://arxiv.org/pdf/2206.11357.pdf)
 model = .... # define your model here
 controller = Controller(model)
 controller.install_hook()
