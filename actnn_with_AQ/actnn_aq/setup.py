@@ -9,7 +9,7 @@ setup(name='actnn_aq',
           ),
           cpp_extension.CUDAExtension(
               'actnn_aq.cpp_extension.minimax',
-              ['actnn_aq/cpp_extension/minimax.cc', 'actnn/cpp_extension/minimax_cuda_kernel.cu']
+              ['actnn_aq/cpp_extension/minimax.cc', 'actnn_aq/cpp_extension/minimax_cuda_kernel.cu']
           ),
           cpp_extension.CUDAExtension(
               'actnn_aq.cpp_extension.backward_func',
@@ -17,7 +17,7 @@ setup(name='actnn_aq',
           ),
           cpp_extension.CUDAExtension(
               'actnn_aq.cpp_extension.quantization',
-              ['actnn_aq/cpp_extension/quantization.cc', 'actnn/cpp_extension/quantization_cuda_kernel.cu']
+              ['actnn_aq/cpp_extension/quantization.cc', 'actnn_aq/cpp_extension/quantization_cuda_kernel.cu']
           ),
       ],
       cmdclass={'build_ext': cpp_extension.BuildExtension},
