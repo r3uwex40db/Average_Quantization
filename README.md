@@ -18,7 +18,7 @@ As the size of deep learning models increases, their performance improves accord
 cd sens_act_with_aq/requirements
 conda env create -f actnn_aq.yaml
 ```
-+ Buld AAL:
++ Buld actnn_aq:
 ```bash
 conda activate actnn_aq
 cd sens_act_with_aq/actnn_aq
@@ -31,7 +31,7 @@ pip install -v -e .
 cd sens_act_with_aq/requirements
 conda env create -f gact_aq.yaml
 ```
-+ Buld AAL:
++ Buld gact_aq:
 ```bash
 conda activate gact_aq
 cd sens_act_with_aq/gact_aq
@@ -41,11 +41,18 @@ pip install -v -e .
 ## Usage 
 
 ### 1. ActNN with AQ
+```python
+import actnn_aq
+actnn_aq.set_optimization_level("L3", bit=args.bit, aq_bit=args.aq_bit) # set the optmization level, average bit of total activations, and AQ 0.x-bit. More config info can be seen in actnn_aq/conf.py and Table. 2 of ActNN paper(https://arxiv.org/pdf/2104.14129.pdf)
+model = .... # define your model here
+model = actnn.QModule(model)
+model = model.cuda() # Convert the model before calling `.cuda()`.
+```
 
 ### 2. GACT with AQ
 ```python
 from gact_aq.controller import Controller # import gact_aq controller
-gact_aq.set_optimization_level(level='L2', bit=1, aq_bit=0.5, gactnorm =True) # set the optmization level, average bit of total activations, AQ 0.x-bit, and whether applying gactnorm or not. More config info can be seen in gact_aq/conf.py and Fig. 3 of GACT paper(https://arxiv.org/pdf/2206.11357.pdf)
+gact_aq.set_optimization_level(level='L2', bit=1, aq_bit=0.5, gactnorm =True) # set the optmization level, average bit of total activations, AQ 0.x-bit, and whether applying gactnorm or not. More config info can be seen in gact_aq/conf.py and Table. 1 of GACT paper(https://arxiv.org/pdf/2206.11357.pdf)
 model = .... # define your model here
 controller = Controller(model)
 controller.install_hook()
