@@ -1,7 +1,7 @@
 # Image Classficiation
 Training for ResNet50 v1.5 modified from [actnn/image_classification](https://github.com/ucbrise/actnn/tree/main/image_classification).
 
-In this example, we use ActNN + AQ by manually constructing the model with the memory-saving layers.
+In this example, we use ActNN_AQ by manually constructing the model with the memory-saving layers.
 
 ## Requirements
 - Put the ImageNet dataset to `~/imagenet`
