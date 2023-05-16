@@ -14,7 +14,7 @@ pip install -r requirements.txt
 python run_glue.py --model_name_or_path ARCH
 --task_name TASK --max_length 128 --per_device_train_batch_size 16 --per_device_eval_batch_size 128 --learning_rate 1e-5 --num_train_epochs 1 --seed 42 --pad_to_max_length  --output_dir log/TASK/LEVEL/ --gact --opt_level LEVEL --bit BIT --aq-bit AQ-BIT --device DEVICE_NUM
 ```
-The choices for TASK are {cola, mnli, mrpc, qnli, qqp, rte, sst2, stsb, wnli}. In the papaer, we experiment with mnli, sst2,  and qnli datasets.
+The choices for TASK are {cola, mnli, mrpc, qnli, qqp, rte, sst2, stsb, wnli}. In the papaer, we experiment with ```mnli```, ```sst2```,  and ```qnli``` datasets.
 
 The choices for ARCH are defined in huggingface.co/models. In the paper, we experiment with ```bert-large-cased```.
 
