@@ -47,7 +47,7 @@ pip install -v -e .
 import actnn_aq
 actnn_aq.set_optimization_level("L3", bit=args.bit, aq_bit=args.aq_bit) # set the optmization level, average bit of total activations, and AQ 0.x-bit. More config info can be seen in actnn_aq/conf.py and Table. 2 of ActNN paper(https://arxiv.org/pdf/2104.14129.pdf)
 model = .... # define your model here
-model = actnn.QModule(model)
+model = actnn_aq.QModule(model)
 model = model.cuda() # Convert the model before calling `.cuda()`.
 ```
 
