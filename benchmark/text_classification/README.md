@@ -1,4 +1,6 @@
 # GACT_AQ NLP Experiments
+NLP Experiments modified from [gact/text_classification](https://github.com/LiuXiaoxuanPKU/GACT-ICML/tree/release_v6/benchmark/text_classification).
+
 ## Requirements
 Make sure you have GACT_AQ installed. 
 Install other dependency with the following command:
