@@ -9,8 +9,8 @@ Put the ImageNet dataset to `~/imagenet`
 ```bash
 DEBUG_MEM=True python3 train.py ~/imagenet --arch ARCH -b BATCH_SIZE --alg ALGORITHM --bit BIT --aq-bit AQ-BIT
 ```
-The choices for ARCH are {resnet50, resnet152, wide_resnet101_2, densenet201}  
-The choices for ALGORITHM are {exact, actnn-L0, actnn-L1, actnn-L2, actnn-L3, actnn-L4, actnn-L5}
+- The choices for ARCH are {resnet50, resnet152, wide_resnet101_2, densenet201}  
+- The choices for ALGORITHM are {exact, actnn-L0, actnn-L1, actnn-L2, actnn-L3, actnn-L4, actnn-L5}
 
 For example, the memory required to ActNN with AQ 0.5-bit when target average precision is 1.25-bit can be acheived by
 ```bash
@@ -21,8 +21,8 @@ DEBUG_MEM=True python3 train.py ~/imagenet --arch resnet50 -b 128 --alg actnn-L3
 ```bash
 DEBUG_SPEED=True python3 train.py ~/imagenet --arch ARCH -b BATCH_SIZE --alg ALGORITHM
 ```
-The choices for ARCH are {resnet50, resnet152, wide_resnet101_2, densenet201}  
-The choices for ALGORITHM are {exact, actnn-L0, actnn-L1, actnn-L2, actnn-L3, actnn-L4, actnn-L5}  
+- The choices for ARCH are {resnet50, resnet152, wide_resnet101_2, densenet201}  
+- The choices for ALGORITHM are {exact, actnn-L0, actnn-L1, actnn-L2, actnn-L3, actnn-L4, actnn-L5}  
 
 For example, the training speed by ActNN with AQ 0.5-bit when target average precision is 1.25-bit can be acheived by
 ```bash
