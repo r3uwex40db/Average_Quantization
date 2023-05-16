@@ -1,5 +1,5 @@
 # Image Classficiation
-Mixed-precision training for ResNet50 v1.5 modified from [DeepLearningExamples](https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Classification/ConvNets).
+Training for ResNet50 v1.5 modified from [actnn/image_classification](https://github.com/ucbrise/actnn/tree/main/image_classification).
 
 In this example, we use ActNN with Average Quantization by manually constructing the model with the memory-saving layers.
 
