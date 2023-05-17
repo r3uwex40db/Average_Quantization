@@ -78,7 +78,7 @@ controller.uninstall_hook()
 ## Results
 
 ### 1. Vision
-![vision](fig/vision.png)
+![vision](fig/Vision.png)
 ### 2. Text classification
 ![text_classification](fig/text_classification.png)
 ## Example
