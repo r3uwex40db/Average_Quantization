@@ -110,7 +110,7 @@ class QuantizationConfig:
         self.prefetch = False
         
         self.zeroact = False
-        self.fast_mem_check = True
+        self.fast_mem_check = False
         
         
 config = QuantizationConfig()
