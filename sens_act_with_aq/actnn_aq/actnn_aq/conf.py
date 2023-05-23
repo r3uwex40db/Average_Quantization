@@ -23,14 +23,14 @@ def set_optimization_level(level, bit=0, aq_bit=0):
         config.qmode = 'actnn-aq'
         config.activation_compression_bits[0]=1.5
         config.aq_bit = aq_bit = 1
-        config.aq_group_size = int(round(2/aq_bit))
+        config.average_group_size = int(round(2/aq_bit))
         config.remove_cache = True
         pass
     elif level == 'L3-aq1.0-1.25b':   # 2-bit
         config.qmode = 'actnn-aq'
         config.activation_compression_bits[0]=1.25
         config.aq_bit = aq_bit = 1.0
-        config.aq_group_size = int(round(2/aq_bit))  
+        config.average_group_size = int(round(2/aq_bit))  
         config.remove_cache = True
         pass
 
@@ -60,7 +60,7 @@ def set_optimization_level(level, bit=0, aq_bit=0):
     if aq_bit != 0:
         config.qmode = 'actnn-aq'
         config.aq_bit = aq_bit
-        config.aq_group_size = int(round(2/aq_bit))
+        config.average_group_size = int(round(2/aq_bit))
     
 
 class QuantizationConfig:
