@@ -36,7 +36,7 @@ In the paper, we experiment AQ-BIT with ```1``` and ```0.5```, which generated b
 
 For example, the training speed by ActNN_AQ-0.5bit when target average precision is 1.25-bit can be acheived by
 ```bash
-DEBUG_SPEED=True python3 train.py ~/imagenet --arch resnet50 -b 128 --alg actnn-L3 --bit 1.25 --aq-bit 0.5 --gpu 0
+DEBUG_SPEED=True python3 train.py ~/imagenet --arch resnet50 -b 256 --alg actnn-L3 --bit 1.25 --aq-bit 0.5 --gpu 0
 ```
 
 ## Find maximum batch sizes and model sizes
