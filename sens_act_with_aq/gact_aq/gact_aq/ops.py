@@ -66,14 +66,14 @@ def op_quantize(input, q_bit, seed):
     delta=0
     if config.aq:    
         if q_bit == 1: # apply average and quantization when AQ 0.x-bit is allocated
-            remainder = input.numel() % config.zero_group_size
+            remainder = input.numel() % config.average_group_size
             if remainder == 0:
-                input = input.reshape(-1,config.zero_group_size)
+                input = input.reshape(-1,config.average_group_size)
                 input = input.mean(dim=1, keepdim=True)
             else:
                 input_set = input.view(1,-1)[:,:input.numel()-remainder]
                 input_remainder = input.view(1,-1)[:,input.numel()-remainder:]
-                input_set = input_set.view(-1,config.zero_group_size).mean(dim=1, keepdim=True)
+                input_set = input_set.view(-1,config.average_group_size).mean(dim=1, keepdim=True)
                 input_remainder = input_remainder.mean(dim=1,keepdim=True)
                 input = torch.cat([input_set,input_remainder],dim=0)
             q_input_shape = input.shape
@@ -101,10 +101,10 @@ def op_dequantize(input, input_shape):
             input = input.view(q_input_shape)
             
             if remainder == 0:
-                input = input.repeat(1, config.zero_group_size).view(input_shape)
+                input = input.repeat(1, config.average_group_size).view(input_shape)
             else:
-                set = np.prod(input_shape)//config.zero_group_size
-                input_set = input[:set,:].repeat(1,config.zero_group_size).view(-1,1)
+                set = np.prod(input_shape)//config.average_group_size
+                input_set = input[:set,:].repeat(1,config.average_group_size).view(-1,1)
                 input_remainder = input[set:,:].repeat(1,remainder).view(-1,1)
                 input = torch.cat([input_set,input_remainder],dim=0).view(input_shape)
     
