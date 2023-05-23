@@ -7,7 +7,7 @@ Put the ImageNet dataset to `~/imagenet`
 
 ## Benchmark Memory Usage
 ```bash
-DEBUG_MEM=True python3 train.py ~/imagenet --arch ARCH -b BATCH_SIZE --alg ALGORITHM --bit BIT --aq-bit AQ-BIT
+DEBUG_MEM=True python3 train.py ~/imagenet --arch ARCH -b BATCH_SIZE --alg ALGORITHM --bit BIT --aq-bit AQ-BIT --gpu GPU-NUM
 ```
 The choices for ARCH are {```resnet50```, ```resnet152```, ```wide_resnet101_2```, ```densenet201```}. In the paper, we experiment ARCH with ```resnet50```. 
 
@@ -19,12 +19,12 @@ In the paper, we experiment AQ-BIT with ```1``` and ```0.5```, which generated b
 
 For example, the memory required to ActNN_AQ-0.5bit when target average precision is 1.25-bit can be acheived by
 ```bash
-DEBUG_MEM=True python3 train.py ~/imagenet --arch resnet50 -b 128 --alg actnn-L3 --bit 1.25 --aq-bit 0.5
+DEBUG_MEM=True python3 train.py ~/imagenet --arch resnet50 -b 256 --alg actnn-L3 --bit 1.25 --aq-bit 0.5 --gpu 0
 ```
 
 ## Benchmark Training Speed
 ```bash
-DEBUG_SPEED=True python3 train.py ~/imagenet --arch ARCH -b BATCH_SIZE --alg ALGORITHM
+DEBUG_SPEED=True python3 train.py ~/imagenet --arch ARCH -b BATCH_SIZE --alg ALGORITHM --bit BIT --aq-bit AQ-BIT --gpu GPU-NUM
 ```
 The choices for ARCH are {```resnet50```, ```resnet152```, ```wide_resnet101_2```, ```densenet201```}. In the paper, we experiment ARCH with ```resnet50```. 
 
@@ -36,7 +36,7 @@ In the paper, we experiment AQ-BIT with ```1``` and ```0.5```, which generated b
 
 For example, the training speed by ActNN_AQ-0.5bit when target average precision is 1.25-bit can be acheived by
 ```bash
-DEBUG_SPEED=True python3 train.py ~/imagenet --arch resnet50 -b 128 --alg actnn-L3 --bit 1.25 --aq-bit 0.5
+DEBUG_SPEED=True python3 train.py ~/imagenet --arch resnet50 -b 128 --alg actnn-L3 --bit 1.25 --aq-bit 0.5 --gpu 0
 ```
 
 ## Find maximum batch sizes and model sizes
