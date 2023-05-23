@@ -24,7 +24,6 @@ def set_optimization_level(level, bit=0, aq_bit=0, gactnorm=False):
         config.auto_prec = True
         config.bit = 2
         config.fast_mem_check = True
-        #config.zeroact=True
     elif level == 'L2.2_GN':  # auto precision 2-bit
         config.auto_prec = True
         bit = 2.0
@@ -70,7 +69,7 @@ def set_optimization_level(level, bit=0, aq_bit=0, gactnorm=False):
     if aq_bit != 0:
         config.aq = True
         config.aq_bit = aq_bit
-        config.zero_group_size = int(2/aq_bit)
+        config.average_group_size = int(2/aq_bit)
     config.gactnorm = gactnorm
      
         
@@ -87,7 +86,7 @@ class QuantizationConfig:
         # if auto precision is turned on, each activation is quantized uniformly with self.bit bits
         self.bit = 4
         self.group_size = 256
-        self.zero_group_size = 2
+        self.average_group_size = 2
         self.aq = False
         # avoid the same activation multiple times, this will further reduce training memory
         # please reach out to xiaoxuan_liu@berkeley.edu if you meet bugs after setting this field to True
@@ -109,7 +108,7 @@ class QuantizationConfig:
         self.swap = False
         self.prefetch = False
         
-        self.zeroact = False
+        # For fast memory checking
         self.fast_mem_check = False
         
         
