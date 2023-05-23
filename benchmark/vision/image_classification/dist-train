@@ -1,0 +1,17 @@
+NNODES=$1
+NODE_RANK=$2
+MASTER_ADDR=$3
+NPROC_PER_NODE=$4
+PORT=$5
+ARCH=$6
+ARGS=$7
+ID=$8
+DIR=$9
+
+
+BATCH_SIZE=${10:-32}
+LR=0.256
+WARMUP=4
+
+mkdir results/$ID
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 ./multiproc.py --nnodes $NNODES --node_rank $NODE_RANK --master_addr $MASTER_ADDR --master_port $PORT --nproc_per_node $NPROC_PER_NODE  ./main.py --arch $ARCH --gather-checkpoints --workspace results/$ID --batch-size $BATCH_SIZE --lr $LR --warmup $WARMUP $ARGS  $DIR
