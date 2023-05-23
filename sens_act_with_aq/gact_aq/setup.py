@@ -9,7 +9,7 @@ setup(name='gact_aq',
           ),
           cpp_extension.CUDAExtension(
               'gact_aq.cpp_extension.minimax',
-              ['gact_aq/cpp_extension/minimax.cc', 'gact/cpp_extension/minimax_cuda_kernel.cu']
+              ['gact_aq/cpp_extension/minimax.cc', 'gact_aq/cpp_extension/minimax_cuda_kernel.cu']
           ),
           cpp_extension.CUDAExtension(
               'gact_aq.cpp_extension.quantization',
