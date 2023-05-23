@@ -4,29 +4,29 @@ from math import ceil
 from actnn_aq.conf import config
 import actnn_aq.cpp_extension.minimax as ext_minimax
 
-def averaging(input, aq_group_size):
-    remainder = input.numel() % aq_group_size
+def averaging(input, average_group_size):
+    remainder = input.numel() % average_group_size
     if remainder == 0:
-        input = input.reshape(-1,aq_group_size)
+        input = input.reshape(-1,average_group_size)
         input = input.mean(dim=1, keepdim=True).view(1,-1)
         return [input, remainder]
     else:
         input_mean = input.view(1,-1)[:,:input.numel()-remainder]
         input_remainder = input.view(1,-1)[:,input.numel()-remainder:]
         
-        input_mean = input_mean.view(-1,aq_group_size).mean(dim=1, keepdim=True)
+        input_mean = input_mean.view(-1,average_group_size).mean(dim=1, keepdim=True)
         input_remainder = input_remainder.mean(dim=1,keepdim=True)
         
         input_mean = torch.cat([input_mean,input_remainder],dim=0)
         return [input_mean, remainder]
     
-def repeating(input, aq_group_size, input_shape, remainder):
+def repeating(input, average_group_size, input_shape, remainder):
     input = input.view(-1,1)
     if remainder == 0:
-        input = input.repeat(1, aq_group_size).view(input_shape)
+        input = input.repeat(1, average_group_size).view(input_shape)
     else:
-        set = np.prod(input_shape)//aq_group_size
-        input_mean = input[:set,:].repeat(1,aq_group_size).view(-1,1)
+        set = np.prod(input_shape)//average_group_size
+        input_mean = input[:set,:].repeat(1,average_group_size).view(-1,1)
         input_remainder = input[set:,:].repeat(1,remainder).view(-1,1)
         input = torch.cat([input_mean,input_remainder],dim=0).view(input_shape)
     return input
@@ -58,7 +58,7 @@ def average_and_pack(input_groups, padding):
     if padding != 0:
         input_groups = input_groups[:,:-padding] # remove padding for averaging 
     before_averaging_shape = input_groups.size()
-    input_groups, remainder = averaging(input_groups, config.aq_group_size) # perform averaging (flatten, [A,1])
+    input_groups, remainder = averaging(input_groups, config.average_group_size) # perform averaging (flatten, [A,1])
     input_groups, q_min, mx, padding2 = minimax_of_averaging(input_groups, H) # prepair quantization by attaining information of averaging
     return input_groups, q_min, mx, remainder, padding2, before_averaging_shape
 
@@ -66,5 +66,5 @@ def repeat_and_unpack(input_groups, before_average_shape,remainder, padding2):
     input_groups = input_groups.view(-1,1) #[A,1]
     if padding2 != 0: # remove padding for repeating
         input_groups = input_groups[:-padding2,:]
-    input_groups = repeating(input_groups, config.aq_group_size, before_average_shape, remainder) #[N, -1]
+    input_groups = repeating(input_groups, config.average_group_size, before_average_shape, remainder) #[N, -1]
     return input_groups
