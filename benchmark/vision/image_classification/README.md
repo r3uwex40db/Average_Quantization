@@ -16,7 +16,7 @@ pip install matplotlib tqdm
 ```
 chmod +x dist-train
 
-./dist-train 1 0 127.0.0.1 1 resnet50 \
+./dist-train 1 0 127.0.0.1 8 29500 resnet50 \
    "-c quantize --ca=True --actnn-level L3 --bit 1.5 --aq-bit 1.0"\
    tmp ~/imagenet 256
 ```
