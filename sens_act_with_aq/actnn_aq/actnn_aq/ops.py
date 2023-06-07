@@ -218,7 +218,7 @@ def dequantize_activation(quantized, qmode, q_input_shape, before_quantize_shape
                 empty_cache(0.5)
             
             # merging and restoring input activation by batch index
-            input = torch.empty(q_input_shape[0],H,config.group_size, device=input_groups2.device)
+            input = torch.empty(q_input_shape[0],H,config.group_size, device=input_groups2.device, dtype=input_groups2.dtype)
             input[ind2,:,:] = input_groups2
             del input_groups2
             input[ind1,:,:] = input_groups1
