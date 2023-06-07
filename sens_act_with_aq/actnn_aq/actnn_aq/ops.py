@@ -94,8 +94,6 @@ def no_scheme_compute_quantization_bits(input):
     b = config.activation_compression_bits[0]
     return input_groups.view(N, -1, config.group_size), b, mn.view(N, -1, 1), mx.view(N, -1, 1), padding
 
-#%%
-
 def quantize_activation(input, scheme, qmode):
     q_input=q_bits=q_scale=q_min=ind1=ind2=before_quantize_shape=before_average_shape=None
     remainder=padding=padding2=N1=N2=0
@@ -537,7 +535,7 @@ class linear(Function):
 
         if ctx.scheme:
             ctx.scheme.if_allocate_perlayer()
-        return grad_input, grad_weight, grad_bias, None
+        return grad_input.reshape(q_input_shape), grad_weight, grad_bias, None
 
 
 class batch_norm(Function):
