@@ -505,24 +505,35 @@ class linear(Function):
 
         empty_cache(config.empty_cache_threshold)
 
-        # TODO: the following implementation might not be optimal
-        C_in = input.shape[-1]
-        C_out = grad_output.shape[-1]
-        # rank = len(grad_output.shape)
+        if len(grad_output.size()) == 2:
+            # TODO: the following implementation might not be optimal
+            C_in = input.shape[-1]
+            C_out = grad_output.shape[-1]
+            # rank = len(grad_output.shape)
 
-        grad_output_flatten = grad_output.view(-1, C_out)
-        input_flatten = input.view(-1, C_in)
-        # print(grad_output_flatten.shape, weight.shape)
-        grad_input = grad_output_flatten.mm(weight)
-        grad_weight = grad_output_flatten.t().mm(input_flatten)
+            grad_output_flatten = grad_output.view(-1, C_out)
+            input_flatten = input.view(-1, C_in)
+            # print(grad_output_flatten.shape, weight.shape)
+            grad_input = grad_output_flatten.mm(weight)
+            grad_weight = grad_output_flatten.t().mm(input_flatten)
 
-        # grad_input = grad_output.mm(weight)
-        # grad_weight = grad_output.t().mm(input)
-        if bias is not None:
-            # grad_bias = grad_output.sum(0)
-            grad_bias = grad_output_flatten.sum(0)
-        else:
+            # grad_input = grad_output.mm(weight)
+            # grad_weight = grad_output.t().mm(input)
+            if bias is not None:
+                # grad_bias = grad_output.sum(0)
+                grad_bias = grad_output_flatten.sum(0)
+            else:
+                grad_bias = None
+            
+        else: # 3D input for Transformer in Linear layer 
+            grad_output_size = grad_output.size()
+            grad_output = grad_output.reshape(-1, grad_output_size[-1]) 
+            input = input.reshape(-1,input.size(2))
+            grad_weight = F.linear(input.t(), grad_output.t()).t()
             grad_bias = None
+            if bias is not None:
+                grad_bias = grad_output.sum(0).squeeze(0)
+            grad_input = F.linear(grad_output, weight.t())
 
         if ctx.scheme:
             ctx.scheme.if_allocate_perlayer()
